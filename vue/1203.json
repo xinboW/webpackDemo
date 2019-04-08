@@ -1,0 +1,87 @@
+{
+    "result": true,
+    "info": "获取销售线索数据成功！",
+    "object": {
+        "totalPage": 1,
+        "saleslist": [
+            {
+                "readState": "0",
+                "timesscore": "4",
+                "articleName": "",
+                "userOpenid": "o43yZt9pezAOGEE36OWmHsq6U8oU",
+                "userHeadImgUrl": "",
+                "totalsorce": "16",
+                "watchTime": "552",
+                "userNickName": "测试",
+                "activityType": "",
+                "userId": "1941049",
+                "unreadAmount": 0
+            },
+            {
+                "readState": "0",
+                "timesscore": "2",
+                "articleName": "",
+                "userOpenid": "o43yZt2y-W9nVrSBVLE7QzoutEYo",
+                "userHeadImgUrl": "",
+                "totalsorce": "12",
+                "watchTime": "281",
+                "userNickName": "测试",
+                "activityType": "",
+                "userId": "1509556",
+                "unreadAmount": 0
+            },
+            {
+                "readState": "0",
+                "timesscore": "2",
+                "articleName": "",
+                "userOpenid": "o43yZt4rbBIKtMVUEvC-_X3gdlm0",
+                "userHeadImgUrl": "",
+                "totalsorce": "12",
+                "watchTime": "315",
+                "userNickName": "测试",
+                "activityType": "",
+                "userId": "1620309",
+                "unreadAmount": 0
+            },
+            {
+                "readState": "0",
+                "timesscore": "2",
+                "articleName": "",
+                "userOpenid": "o43yZt4l8cvyXEX9iCAUQqbp4Qgw",
+                "userHeadImgUrl": "",
+                "totalsorce": "12",
+                "watchTime": "356",
+                "userNickName": "测试",
+                "activityType": "",
+                "userId": "1810603",
+                "unreadAmount": 0
+            },
+            {
+                "readState": "0",
+                "timesscore": "2",
+                "articleName": "",
+                "userOpenid": "o43yZt_LbHS0TLb8IFv0rLNngoxY",
+                "userHeadImgUrl": "",
+                "totalsorce": "8",
+                "watchTime": "198",
+                "userNickName": "测试",
+                "activityType": "",
+                "userId": "1578120",
+                "unreadAmount": 0
+            },
+            {
+                "readState": "0",
+                "timesscore": "2",
+                "articleName": "",
+                "userOpenid": "o43yZtxdi7i7YegNdUdImh3njftc",
+                "userHeadImgUrl": "",
+                "totalsorce": "4",
+                "watchTime": "115",
+                "userNickName": "测试",
+                "activityType": "",
+                "userId": "1232471",
+                "unreadAmount": 0
+            }
+        ]
+    }
+}

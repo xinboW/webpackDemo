@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telphone=no, email=no" />
+        <title></title>
+        <link rel="stylesheet" href="reset.css">
+        <style>
+            button{
+                display:block;
+                margin:20px 0 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id='app'>
+           <p>{{message}}</p>
+           <button-counter></button-counter>
+           <button-counter></button-counter>
+        </div>
+        <script src="vue.js"></script>
+        <script>
+            
+            // 先注册组件,后创建实例
+            Vue.component('button-counter', {
+                //注册组件的时候data,必须是一个函数,每个实例可以维护一份被返回对象的独立拷贝
+                data: function () { 
+                    return {
+                      count: 0
+                    }
+                },
+                template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+            })
+
+            Vue.component('blog-post')
+
+            var vm = new Vue({
+                el: "#app",
+                data: function () {
+                    return {
+                        message:"你好"
+                    }
+                }
+            })
+
+        </script>
+    </body>
+    
+</html>
