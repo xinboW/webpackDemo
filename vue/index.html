@@ -8,17 +8,38 @@
         <title></title>
         <link rel="stylesheet" href="reset.css">
         <style>
-            button{
+            .btn{
                 display:block;
-                margin:20px 0 0;
+                margin:20px 0;
+            }
+            .txt p{
+                margin:10px 0;
+                color:red;
+            }
+            .txt button{
+                padding:10px;
+                border:1px solid #ccc;
             }
         </style>
     </head>
     <body>
         <div id='app'>
-           <p>{{message}}</p>
-           <button-counter></button-counter>
-           <button-counter></button-counter>
+
+            <p>{{ message }}</p>
+
+            <button-counter class='btn'></button-counter>
+                                            <!-- 子组件给父组件传值,父组件需要在子组件上添加由$emit提交的 @自定义事件名='父组件接受传值的方法' -->
+            <blog-post title='父组件给子组件传值' :style='{ fontSize:blogFontSize + "px" }' @add-font-size='setFontSize'></blog-post> 
+
+            <component-a :style="marginTop20"></component-a>
+            
+            <!-- 自定义组件的v-model -->
+            <base-checkbox v-model="lovingVue" :style="marginTop20" @change="getChecked"></base-checkbox>
+            
+            <!--  -->
+            <base-input :style="marginTop20" style='border:1px solid #ccc' v-model="baseinputboxval" @focus="onFocus"></base-input>
+
+            <p>{{ baseinputboxval }}</p>
         </div>
         <script src="vue.js"></script>
         <script>
@@ -34,14 +55,141 @@
                 template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
             })
 
-            Vue.component('blog-post')
+            // 全局组件
+            Vue.component('blog-post',{
+                props:{                 // props是单向数据流
+                    'title':String,     // 父组件给子组件传值,子组件需要用props接受 
+                    'propB':{
+                        type:Number,    // props可以用对象形式列出,并可以指定类型, props:{'title':String}
+                        default:100
+                    },
+                    'propC':{
+                        type:Object,
+                        default:function(){
+                            return {message:'1203.json'}
+                        }
+                    }                                   
+                },              
+                template:`
+                    <div class='txt'>
+                        <h3>{{ title }}</h3>
+                        <p>这是一行需要放大的文字</p>
+                        <button @click='add'>点击放大</button>
+                    </div>
+                    `,
+                data:function() {
+                    return{
+                        propNum:this.propB,
+                    }   
+                },
+                methods: {
+                  add () { // 子组件给父组件传值,需要在子组件实现一个方法来提交$emit('自定义事件名',需要传递的值)
+                    this.$emit('add-font-size','10,子组件给父组件传值')
+                  }
+                },
+                mounted:function () {
+                    console.log(this.propNum,this.propC)
+                }
+            })
+
+            // 局部组件
+            var componentA = {
+                template:'<p>这是一个局部组件</p>',
+                data:function(){
+                    return {
+
+                    }
+                }
+            }
+
+            // 一个复选框组件
+            Vue.component('base-checkbox', {
+              model: { 
+                prop: 'checked',
+                event: 'change'
+              },
+              props: {
+                checked: Boolean
+              },
+              template: `
+                <input
+                  type="checkbox"
+                  v-bind:checked="checked"
+                  v-on:change="$emit('change', $event.target.checked)"
+                >
+              `
+            })
+
+            // 一个输入框组件
+            Vue.component('base-input', {
+              inheritAttrs: false,
+              props: ['label', 'value'],
+              computed: {
+                inputListeners: function () {
+                  var vm = this
+                  // `Object.assign` 将所有的对象合并为一个新对象
+                  return Object.assign({},
+                    // 我们从父级添加所有的监听器
+                    this.$listeners,
+                    // 然后我们添加自定义监听器，
+                    // 或覆写一些监听器的行为
+                    {
+                      // 这里确保组件配合 `v-model` 的工作
+                      input: function (event) {
+                        vm.$emit('input', event.target.value)
+                      }
+                    }
+                  )
+                }
+              },
+              template: `
+                <label>
+                  {{ label }}
+                  <input
+                    v-bind="$attrs"
+                    v-bind:value="value"
+                    v-on="inputListeners"
+                  >
+                </label>
+              `
+            })
+
+
 
             var vm = new Vue({
                 el: "#app",
+                components:{
+                    'component-a':componentA
+                },
                 data: function () {
                     return {
-                        message:"你好"
+                        message:"你好",
+                        blogFontSize:14,
+                        lovingVue:'',
+                        baseinputboxval:''
                     }
+                },
+                methods:{
+                    setFontSize:function (num) {
+                        var arr = num.split(',');
+                        this.blogFontSize += parseInt(arr[0]);
+                        this.sonMessage = arr[1];
+                    },
+                    getChecked:function(){
+                        console.log(this.lovingVue)
+                    },
+                    onFocus:function(){
+                        console.log('获取到焦点了')
+                    }
+                    
+                },
+                computed: {
+                  marginTop20 () {
+                    return 'margin:20px 0 0';
+                  }
+                },
+                mounted:function(){
+                    
                 }
             })
 
